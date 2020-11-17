@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexAggregator.Api", "ForexAggregator.Api\ForexAggregator.Api.csproj", "{ADD42939-44FE-4F11-8CC5-8155DACA4118}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {967B0884-1828-4E39-B1FC-D2D6B1DB3293}
+	EndGlobalSection
+EndGlobal
