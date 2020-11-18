@@ -17,7 +17,8 @@ namespace ForexAggregator.Api.Service
         }
         public Provider GetProviderByProviderId(long providerId)
         {
-            throw new NotImplementedException();
+            var provider = _context.Provider.Include("Location").FirstOrDefault(x => x.ProviderId.Equals(providerId));
+            return provider;
         }
 
         public List<History> GetProviderHistory(long providerId, DateTime from, DateTime to, string source, string target)
