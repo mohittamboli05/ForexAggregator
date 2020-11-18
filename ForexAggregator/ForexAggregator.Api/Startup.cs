@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace ForexAggregator.Api
@@ -50,8 +51,24 @@ namespace ForexAggregator.Api
                          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                      };
                  });
-            services.AddMvc(options=> {
+            services.AddMvc(options =>
+            {
                 options.EnableEndpointRouting = false;
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ForexAggregator API"
+                });
+
+                //   c.SwaggerDoc("v1", new Info
+                //{
+                //    version = "v1",
+                //    title = "ForexAggregator API",
+                //    description = "Testing"  
+                //});
             });
         }
 
@@ -67,6 +84,11 @@ namespace ForexAggregator.Api
             app.UseRouting();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ForexAggregator API");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=ForexAggregator}/{action=GetProviders}");
