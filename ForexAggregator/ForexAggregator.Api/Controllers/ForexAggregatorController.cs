@@ -27,19 +27,7 @@ namespace ForexAggregator.Api.Controllers
         [HttpGet]
         public Provider GetProviderByProviderId(long providerId)
         {
-            return new Provider()
-            {
-                ProviderId = 1,
-                ProviderName = "Provider 1",
-                Location = new Location()
-                {
-                    ProviderId = 1,
-                    Address = "Mumbai",
-                    CityName = "Mumbai",
-                    LocationId = 1,
-                    PostCode = 12345
-                }
-            };
+            return _forexService.GetProviderByProviderId(providerId);
         }
 
         [AllowAnonymous]
