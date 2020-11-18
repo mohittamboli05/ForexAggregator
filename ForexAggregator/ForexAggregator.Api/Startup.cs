@@ -62,13 +62,6 @@ namespace ForexAggregator.Api
                     Version = "v1",
                     Title = "ForexAggregator API"
                 });
-
-                //   c.SwaggerDoc("v1", new Info
-                //{
-                //    version = "v1",
-                //    title = "ForexAggregator API",
-                //    description = "Testing"  
-                //});
             });
         }
 

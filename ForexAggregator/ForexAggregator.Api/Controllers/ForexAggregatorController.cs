@@ -1,4 +1,5 @@
 ﻿using ForexAggregator.Api.Models;
+using ForexAggregator.Api.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,51 +12,16 @@ namespace ForexAggregator.Api.Controllers
     [Route("api/[controller]/[action]")]
     public class ForexAggregatorController : ControllerBase
     {
+        private readonly IForexService _forexService;
+        public ForexAggregatorController(IForexService forexService)
+        {
+            _forexService = forexService;
+        }
+
         [HttpGet]
         public List<Provider> GetProviders()
         {
-            var providers = new List<Provider>() {
-                new Provider()
-                {
-                    ProviderId=1,
-                    ProviderName="Provider 1",
-                    ProviderLocation=new Location()
-                    {
-                        ProviderId=1,
-                        Address="Mumbai",
-                        CityName="Mumbai",
-                        LocationId=1,
-                        PostCode=12345
-                    }
-                },
-                new Provider()
-                {
-                    ProviderId=2,
-                    ProviderName="Provider 2",
-                    ProviderLocation=new Location()
-                    {
-                        ProviderId=2,
-                        Address="Delhi",
-                        CityName="Delhi",
-                        LocationId=2,
-                        PostCode=234543
-                    }
-                },
-                new Provider()
-                {
-                    ProviderId=3,
-                    ProviderName="Provider 3",
-                    ProviderLocation=new Location()
-                    {
-                        ProviderId=3,
-                        Address="Pune",
-                        CityName="Pune",
-                        LocationId=3,
-                        PostCode=85749
-                    }
-                }
-           };
-            return providers;
+            return _forexService.GetProviders();
         }
 
         [HttpGet]
@@ -76,6 +42,7 @@ namespace ForexAggregator.Api.Controllers
             };
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public List<Exchange> GetRate(string source, string target)
         {
