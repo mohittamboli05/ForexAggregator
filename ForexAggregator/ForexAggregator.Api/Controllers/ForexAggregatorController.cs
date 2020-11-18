@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ForexAggregator.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class ForexAggregatorController : ControllerBase

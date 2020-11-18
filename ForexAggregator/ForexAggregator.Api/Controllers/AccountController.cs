@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,20 +35,26 @@ namespace ForexAggregator.Api.Controllers
             IActionResult response = Unauthorized();
             if (await AuthenticateUser(login))
             {
-                var tokenString = GenerateJSONWebToken();
+                var tokenString = GenerateJSONWebToken(login);
                 response = Ok(new { token = tokenString });
             }
             return response;
         }
 
-        private string GenerateJSONWebToken()
+        private string GenerateJSONWebToken(UserModel userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Email),
+                new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+             };
+
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
-              null,
+              claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
 
@@ -76,7 +83,7 @@ namespace ForexAggregator.Api.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             IActionResult response = Unauthorized();
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Mobile = model.Mobile, EmailConfirmed = true, PhoneNumber = model.Mobile, PhoneNumberConfirmed = true };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
