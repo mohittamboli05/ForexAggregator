@@ -74,6 +74,7 @@ namespace ForexAggregator.Api
             }
             app.UseHttpsRedirection();
             app.UseRouting();
+            //app.UseAuthorization();
             app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger();

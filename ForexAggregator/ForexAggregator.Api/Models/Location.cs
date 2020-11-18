@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ForexAggregator.Api.Models
 {
     public class Location
 	{
+		[Key]
 		public long LocationId { get; set; }
 		[ForeignKey("Provider")]
 		public long ProviderId { get; set; }

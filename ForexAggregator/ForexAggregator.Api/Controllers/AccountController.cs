@@ -64,6 +64,7 @@ namespace ForexAggregator.Api.Controllers
         private async Task<bool> AuthenticateUser(UserModel login)
         {
             var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
+            
             if (result.Succeeded)
             {
                 return true;

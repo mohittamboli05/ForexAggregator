@@ -13,6 +13,7 @@ namespace ForexAggregator.Api.Database
         }
 
         public DbSet<ApplicationRole> ApplicationRole { get; set; }
+        public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Provider> Provider { get; set; }
         public DbSet<Location> Location { get; set; }

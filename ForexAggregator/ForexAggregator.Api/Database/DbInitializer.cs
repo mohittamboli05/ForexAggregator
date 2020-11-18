@@ -1,4 +1,5 @@
 ﻿using ForexAggregator.Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace ForexAggregator.Api.Database
 
         public async Task Seed()
         {
-            if(!_forexAggregatorContext.ApplicationRole.Any())
+            if (!_forexAggregatorContext.ApplicationRole.Any())
             {
-                var roles = new List<ApplicationRole>() 
-                { 
+                var roles = new List<ApplicationRole>()
+                {
                     new ApplicationRole()
                     {
                          Name="Customer",
@@ -32,6 +33,48 @@ namespace ForexAggregator.Api.Database
                     }
                 };
                 await _forexAggregatorContext.ApplicationRole.AddRangeAsync(roles);
+                await _forexAggregatorContext.SaveChangesAsync();
+            }
+
+            if (!_forexAggregatorContext.ApplicationUser.Any())
+            {
+                var hasher = new PasswordHasher<IdentityUser>();
+                var hashed = hasher.HashPassword(null, "Secure*12");
+                var users = new List<ApplicationUser>()
+                {
+                    new ApplicationUser()
+                    {
+                        FirstName = "Mohit",
+                        LastName = "Tamboli",
+                        Email = "mohit.tamboli@gmail.com",
+                        NormalizedEmail = "mohit.tamboli@gmail.com".ToUpper(),
+                        UserName = "mohit.tamboli@gmail.com",
+                        NormalizedUserName = "mohit.tamboli@gmail.com".ToUpper(),
+                        PhoneNumber = "+919876543210",
+                        EmailConfirmed = true,
+                        PhoneNumberConfirmed = true,
+                        PasswordHash= hashed
+                    }
+                };
+
+                await _forexAggregatorContext.ApplicationUser.AddRangeAsync(users);
+                await _forexAggregatorContext.SaveChangesAsync();
+            }
+
+            if (!_forexAggregatorContext.ApplicationUserRole.Any())
+            {
+                var userRoles = new List<ApplicationUserRole>();
+                var roleId = _forexAggregatorContext.ApplicationRole.FirstOrDefault().Id;
+                var users = _forexAggregatorContext.ApplicationUser.ToList();
+                foreach (var user in users)
+                {
+                    userRoles.Add(new ApplicationUserRole()
+                    {
+                        UserId = user.Id,
+                        RoleId = roleId
+                    });
+                }
+                await _forexAggregatorContext.ApplicationUserRole.AddRangeAsync(userRoles);
                 await _forexAggregatorContext.SaveChangesAsync();
             }
 

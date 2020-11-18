@@ -46,6 +46,20 @@ namespace ForexAggregator.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationUserRole",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserRole", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Exchange",
                 columns: table => new
                 {
@@ -127,6 +141,9 @@ namespace ForexAggregator.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "ApplicationUser");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationUserRole");
 
             migrationBuilder.DropTable(
                 name: "Exchange");

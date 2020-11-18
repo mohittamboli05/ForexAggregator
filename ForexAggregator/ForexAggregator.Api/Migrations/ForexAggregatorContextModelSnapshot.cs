@@ -85,6 +85,24 @@ namespace ForexAggregator.Api.Migrations
                     b.ToTable("ApplicationUser");
                 });
 
+            modelBuilder.Entity("ForexAggregator.Api.Models.ApplicationUserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUserRole");
+                });
+
             modelBuilder.Entity("ForexAggregator.Api.Models.Exchange", b =>
                 {
                     b.Property<long>("ExchangeId")

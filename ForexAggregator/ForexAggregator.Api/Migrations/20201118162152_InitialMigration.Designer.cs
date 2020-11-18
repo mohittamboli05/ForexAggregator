@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForexAggregator.Api.Migrations
 {
     [DbContext(typeof(ForexAggregatorContext))]
-    [Migration("20201118140244_InitialMigration")]
+    [Migration("20201118162152_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,24 @@ namespace ForexAggregator.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ForexAggregator.Api.Models.ApplicationUserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUserRole");
                 });
 
             modelBuilder.Entity("ForexAggregator.Api.Models.Exchange", b =>
