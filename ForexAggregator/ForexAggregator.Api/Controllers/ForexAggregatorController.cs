@@ -1,12 +1,14 @@
 ﻿using ForexAggregator.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
 namespace ForexAggregator.Api.Controllers
 {
+    //[Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ForexAggregatorController : ControllerBase
     {
         [HttpGet]
