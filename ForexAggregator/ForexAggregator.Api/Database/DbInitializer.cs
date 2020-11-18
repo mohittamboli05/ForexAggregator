@@ -29,11 +29,6 @@ namespace ForexAggregator.Api.Database
                     {
                          Name="Customer",
                          NormalizedName="Customer"
-                    },
-                    new ApplicationRole()
-                    {
-                         Name="Admin",
-                         NormalizedName="Admin"
                     }
                 };
                 await _forexAggregatorContext.ApplicationRole.AddRangeAsync(roles);
