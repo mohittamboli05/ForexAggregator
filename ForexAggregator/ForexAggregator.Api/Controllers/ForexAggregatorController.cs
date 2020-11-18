@@ -31,7 +31,7 @@ namespace ForexAggregator.Api.Controllers
             {
                 ProviderId = 1,
                 ProviderName = "Provider 1",
-                ProviderLocation = new Location()
+                Location = new Location()
                 {
                     ProviderId = 1,
                     Address = "Mumbai",

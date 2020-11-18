@@ -1,5 +1,6 @@
 using ForexAggregator.Api.Database;
 using ForexAggregator.Api.Models;
+using ForexAggregator.Api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,14 +30,13 @@ namespace ForexAggregator.Api
             services.AddControllers();
             services.AddTransient<IUserStore<ApplicationUser>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddDefaultTokenProviders();
-            services.AddDbContext<Database.AppContext>(options =>
+            services.AddTransient<IForexService, ForexService>();
+            services.AddDbContext<ForexAggregatorContext>(options =>
                       options.UseSqlServer(
                           Configuration.GetConnectionString("DefaultConnection")));
-            //Register dapper in scope    
-            services.AddScoped<IDapper, Database.Dapper>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                  .AddJwtBearer(options =>
                  {
@@ -72,7 +72,6 @@ namespace ForexAggregator.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
