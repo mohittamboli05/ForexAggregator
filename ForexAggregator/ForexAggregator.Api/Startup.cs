@@ -28,29 +28,36 @@ namespace ForexAggregator.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IUserStore<ApplicationUser>, UserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddScoped<IDbInitializer, DbInitializer>();
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+               .AddEntityFrameworkStores<ForexAggregatorContext>()
+               .AddDefaultTokenProviders();
             services.AddTransient<IForexService, ForexService>();
             services.AddDbContext<ForexAggregatorContext>(options =>
                       options.UseSqlServer(
                           Configuration.GetConnectionString("DefaultConnection")));
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                 .AddJwtBearer(options =>
-                 {
-                     options.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         //ValidateIssuer = true,
-                         //ValidateAudience = true,
-                         //ValidateLifetime = true,
-                         //ValidateIssuerSigningKey = true,
-                         ValidIssuer = Configuration["Jwt:Issuer"],
-                         ValidAudience = Configuration["Jwt:Issuer"],
-                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                     };
-                 });
+            // Adding Authentication
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            // Adding Jwt Bearer
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
@@ -74,8 +81,8 @@ namespace ForexAggregator.Api
             }
             app.UseHttpsRedirection();
             app.UseRouting();
-            //app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
