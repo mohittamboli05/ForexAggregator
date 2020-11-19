@@ -50,39 +50,6 @@ namespace ForexAggregator.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exchange",
-                columns: table => new
-                {
-                    ExchangeId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProviderId = table.Column<long>(type: "bigint", nullable: false),
-                    SourceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TargetCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exchange", x => x.ExchangeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "History",
-                columns: table => new
-                {
-                    HistoryId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SourceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TargetCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProviderId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_History", x => x.HistoryId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Provider",
                 columns: table => new
                 {
@@ -202,6 +169,51 @@ namespace ForexAggregator.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exchange",
+                columns: table => new
+                {
+                    ExchangeId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProviderId = table.Column<long>(type: "bigint", nullable: false),
+                    SourceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TargetCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exchange", x => x.ExchangeId);
+                    table.ForeignKey(
+                        name: "FK_Exchange_Provider_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Provider",
+                        principalColumn: "ProviderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "History",
+                columns: table => new
+                {
+                    HistoryId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SourceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TargetCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_History", x => x.HistoryId);
+                    table.ForeignKey(
+                        name: "FK_History_Provider_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Provider",
+                        principalColumn: "ProviderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Location",
                 columns: table => new
                 {
@@ -261,6 +273,18 @@ namespace ForexAggregator.Api.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exchange_ProviderId",
+                table: "Exchange",
+                column: "ProviderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_History_ProviderId",
+                table: "History",
+                column: "ProviderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Location_ProviderId",

@@ -21,10 +21,14 @@ namespace ForexAggregator.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
 
-        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager)
+        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _configuration = config;
             _userManager = userManager;
+
+            var role = roleManager.FindByNameAsync("User").Result;
+            if (role == null)
+                roleManager.CreateAsync(new IdentityRole() { Name = "User", NormalizedName = "User".ToUpper() }).Wait();
         }
 
         [AllowAnonymous]
@@ -35,7 +39,7 @@ namespace ForexAggregator.Api.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
-
+                
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),

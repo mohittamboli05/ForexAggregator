@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForexAggregator.Api.Migrations
 {
     [DbContext(typeof(ForexAggregatorContext))]
-    [Migration("20201119071239_initial-migration")]
+    [Migration("20201119075552_initial-migration")]
     partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,6 +116,9 @@ namespace ForexAggregator.Api.Migrations
 
                     b.HasKey("ExchangeId");
 
+                    b.HasIndex("ProviderId")
+                        .IsUnique();
+
                     b.ToTable("Exchange");
                 });
 
@@ -142,6 +145,9 @@ namespace ForexAggregator.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HistoryId");
+
+                    b.HasIndex("ProviderId")
+                        .IsUnique();
 
                     b.ToTable("History");
                 });
@@ -319,6 +325,24 @@ namespace ForexAggregator.Api.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ForexAggregator.Api.Models.Exchange", b =>
+                {
+                    b.HasOne("ForexAggregator.Api.Models.Provider", null)
+                        .WithOne("Exchange")
+                        .HasForeignKey("ForexAggregator.Api.Models.Exchange", "ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ForexAggregator.Api.Models.History", b =>
+                {
+                    b.HasOne("ForexAggregator.Api.Models.Provider", null)
+                        .WithOne("History")
+                        .HasForeignKey("ForexAggregator.Api.Models.History", "ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ForexAggregator.Api.Models.Location", b =>
                 {
                     b.HasOne("ForexAggregator.Api.Models.Provider", null)
@@ -381,6 +405,10 @@ namespace ForexAggregator.Api.Migrations
 
             modelBuilder.Entity("ForexAggregator.Api.Models.Provider", b =>
                 {
+                    b.Navigation("Exchange");
+
+                    b.Navigation("History");
+
                     b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
