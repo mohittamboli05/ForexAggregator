@@ -1,10 +1,12 @@
 ﻿using ForexAggregator.Api.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,81 +19,81 @@ namespace ForexAggregator.Api.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private IConfiguration _config;
+        private IConfiguration _configuration;
 
-        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _config = config;
+            _configuration = config;
             _userManager = userManager;
-            _signInManager = signInManager;
+
+            var role = roleManager.FindByNameAsync("User").Result;
+            if (role == null)
+                roleManager.CreateAsync(new IdentityRole() { Name = "User", NormalizedName = "User".ToUpper() }).Wait();
         }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserModel login)
         {
-            IActionResult response = Unauthorized();
-            if (await AuthenticateUser(login))
+            var user = await _userManager.FindByNameAsync(login.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
             {
-                var tokenString = GenerateJSONWebToken(login);
-                response = Ok(new { token = tokenString });
+                var userRoles = await _userManager.GetRolesAsync(user);
+                
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                }
+
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+                var token = new JwtSecurityToken(
+                    issuer: _configuration["JWT:ValidIssuer"],
+                    audience: _configuration["JWT:ValidAudience"],
+                    expires: DateTime.Now.AddHours(3),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                    );
+
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                });
             }
-            return response;
+            return Unauthorized();
         }
 
-        private string GenerateJSONWebToken(UserModel userInfo)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Email),
-                new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-             };
-
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              claims,
-              expires: DateTime.Now.AddMinutes(120),
-              signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private async Task<bool> AuthenticateUser(UserModel login)
-        {
-            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
-            
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            if (result.IsLockedOut)
-            {
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            IActionResult response = Unauthorized();
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Mobile = model.Mobile, EmailConfirmed = true, PhoneNumber = model.Mobile, PhoneNumberConfirmed = true };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+            var userExists = await _userManager.FindByNameAsync(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+
+            ApplicationUser user = new ApplicationUser()
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                response = Ok(new { user = user });
-            }
-            return response;
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Mobile = model.Mobile,
+                PhoneNumber = model.Mobile,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            await _userManager.AddToRoleAsync(user, "User");
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
     }
 }

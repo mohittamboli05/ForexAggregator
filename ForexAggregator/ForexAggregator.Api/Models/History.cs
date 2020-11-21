@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ForexAggregator.Api.Models
 {
@@ -9,6 +10,7 @@ namespace ForexAggregator.Api.Models
 		public decimal Rate { get; set; }
 		public string SourceCurrency { get; set; }
 		public string TargetCurrency { get; set; }
+		[ForeignKey("Provider")]
 		public long ProviderId { get; set; }
 	}
 }
