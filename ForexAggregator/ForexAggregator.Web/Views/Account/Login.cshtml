@@ -1,0 +1,32 @@
+﻿@model ForexAggregator.Web.Models.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container">
+    <div class="row">
+
+        <div style="width: 30%; margin: 25px auto;">
+            <h1 style="text-align: center">User Login</h1>
+            <form class="form-horizontal" method="post" asp-action="Login">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control border-left-0", @placeholder = "Enter email" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pwd">Password:</label>
+                    <div class="">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control border-left-0", @placeholder = "Enter password" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 ">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

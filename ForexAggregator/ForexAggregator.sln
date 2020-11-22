@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForexAggregator.Api", "ForexAggregator.Api\ForexAggregator.Api.csproj", "{ADD42939-44FE-4F11-8CC5-8155DACA4118}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForexAggregator.UI", "ForexAggregator.UI\ForexAggregator.UI.csproj", "{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexAggregator.Web", "ForexAggregator.Web\ForexAggregator.Web.csproj", "{87A320BD-0D13-4FF3-8F42-25EDC38349F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADD42939-44FE-4F11-8CC5-8155DACA4118}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A320BD-0D13-4FF3-8F42-25EDC38349F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A320BD-0D13-4FF3-8F42-25EDC38349F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A320BD-0D13-4FF3-8F42-25EDC38349F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A320BD-0D13-4FF3-8F42-25EDC38349F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
