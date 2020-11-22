@@ -61,10 +61,10 @@ namespace ForexAggregator.Api.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new
+                return Ok(new ServiceResponse
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    Data = new JwtSecurityTokenHandler().WriteToken(token),
+                    IsSuccessful = true
                 });
             }
             return Unauthorized();
@@ -75,7 +75,7 @@ namespace ForexAggregator.Api.Controllers
         {
             var userExists = await _userManager.FindByNameAsync(model.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new ServiceResponse { IsSuccessful =false, Data = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -91,9 +91,9 @@ namespace ForexAggregator.Api.Controllers
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new ServiceResponse { IsSuccessful = false, Data = "User creation failed! Please check user details and try again." });
             await _userManager.AddToRoleAsync(user, "User");
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new ServiceResponse { IsSuccessful = true, Data = "User created successfully!" });
         }
     }
 }

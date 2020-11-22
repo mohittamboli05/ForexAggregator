@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ForexAggregator.UI.Helper
+@using ForexAggregator.UI.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,14 +19,31 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav float-right">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Signup</a>
-                        </li>
-                    </ul>
+                    @{
+                        var x = Context.Session.GetObjectFromJson<UserData>("UserName");
+                        if (x != null && !string.IsNullOrEmpty(x.UserName))
+                        {
+                                        <ul class="navbar-nav float-right">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-white">Welcome @x.UserName!</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">Logout</a>
+                                            </li>
+                                        </ul>
+                        }
+                        else
+                        {
+                            <ul class="navbar-nav float-right">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Signup</a>
+                                </li>
+                            </ul>
+                        }
+                    }
                 </div>
             </div>
         </nav>

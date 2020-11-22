@@ -28,6 +28,13 @@ namespace ForexAggregator.UI
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //Added for session state
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,13 +55,13 @@ namespace ForexAggregator.UI
             app.UseStaticFiles();
             
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute("default", "{controller=Forex}/{action=Index}");
             });
            
         }

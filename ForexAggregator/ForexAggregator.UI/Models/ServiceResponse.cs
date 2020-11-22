@@ -1,4 +1,4 @@
-﻿namespace ForexAggregator.Api.Models
+﻿namespace ForexAggregator.UI.Models
 {
     public class ServiceResponse
     {

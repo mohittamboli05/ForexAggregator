@@ -16,7 +16,7 @@ namespace ForexAggregator.Api.Database
 
         public void Initialize()
         {
-            _forexAggregatorContext.Database.Migrate();
+            //_forexAggregatorContext.Database.Migrate();
         }
 
         public async Task Seed()

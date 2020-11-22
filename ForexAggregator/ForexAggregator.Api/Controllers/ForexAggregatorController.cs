@@ -18,20 +18,20 @@ namespace ForexAggregator.Api.Controllers
         }
 
         [HttpGet]
-        public List<Provider> GetProviders()
+        public ServiceResponse GetProviders()
         {
             return _forexService.GetProviders();
         }
 
         [HttpGet]
-        public Provider GetProviderByProviderId(long providerId)
+        public ServiceResponse GetProviderByProviderId(long providerId)
         {
             return _forexService.GetProviderByProviderId(providerId);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public List<Exchange> GetRate(string source, string target)
+        public ServiceResponse GetRate(string source, string target)
         {
             var exchanges = new List<Exchange>()
             {
@@ -60,7 +60,12 @@ namespace ForexAggregator.Api.Controllers
                      TargetCurrency="INR"
                 }
             };
-            return exchanges;
+            var response = new ServiceResponse()
+            {
+                Data = exchanges,
+                IsSuccessful = true
+            };
+            return response;
         }
     }
 }
