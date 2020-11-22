@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForexAggregator.Api", "ForexAggregator.Api\ForexAggregator.Api.csproj", "{ADD42939-44FE-4F11-8CC5-8155DACA4118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexAggregator.UI", "ForexAggregator.UI\ForexAggregator.UI.csproj", "{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForexAggregator.UI", "ForexAggregator.UI\ForexAggregator.UI.csproj", "{59AB8E04-1F73-4FFC-A238-575E0AC0D1A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

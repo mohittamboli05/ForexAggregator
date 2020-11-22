@@ -19,7 +19,12 @@ namespace ForexAggregator.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Register(string returnUrl)
+        public async Task<IActionResult> Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             return View();
         }
