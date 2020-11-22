@@ -3,7 +3,6 @@ using ForexAggregator.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -23,11 +22,17 @@ namespace ForexAggregator.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var result = await HttpClientHelper.GetAsync<ServiceResponse<List<Provider>>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetProviders", "");
-            if(result.IsSuccessful)
+            return View();
+        }
+
+        public async Task<IActionResult> GetCurrency()
+        {
+            var result = await HttpClientHelper.GetAsync<ServiceResponse<List<Currency>>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetCurrency", "");
+            if (result.IsSuccessful)
             {
-                var providers = result.Data;
-                return View(result.Data);
+
+                if (Request.IsAjaxRequest())
+                    return Json(result.Data);
             }
             return View();
         }

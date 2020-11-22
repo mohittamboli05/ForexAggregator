@@ -40,5 +40,14 @@ namespace ForexAggregator.Api.Service
         {
             throw new NotImplementedException();
         }
+
+        public ServiceResponse GetCurrency()
+        {
+            var response = new ServiceResponse();
+            var currency = _context.Country.ToList();
+            response.Data = currency;
+            response.IsSuccessful = true;
+            return response;
+        }
     }
 }

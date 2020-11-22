@@ -67,5 +67,11 @@ namespace ForexAggregator.Api.Controllers
             };
             return response;
         }
+
+        [HttpGet]
+        public ServiceResponse GetCurrency()
+        {
+            return _forexService.GetCurrency();
+        }
     }
 }

@@ -16,11 +16,25 @@ namespace ForexAggregator.Api.Database
 
         public void Initialize()
         {
-            //_forexAggregatorContext.Database.Migrate();
+            _forexAggregatorContext.Database.Migrate();
         }
 
         public async Task Seed()
         {
+            if (!_forexAggregatorContext.Country.Any())
+            {
+                var country = new List<Country>()
+                {
+                    new Country(){ CountryName="United States", CurrencyCode="USD", CurrencyName="United States dollar", CurrencySymbol="$" },
+                    new Country(){ CountryName="United KIngdom", CurrencyCode="GBP", CurrencyName="British pound", CurrencySymbol="£" },
+                    new Country(){ CountryName="Japan", CurrencyCode="JPY", CurrencyName="Japanese yen", CurrencySymbol="¥" },
+                    new Country(){ CountryName="Jordan", CurrencyCode="JOD", CurrencyName="Jordanian dinar", CurrencySymbol="§" },
+                    new Country(){ CountryName="India", CurrencyCode="INR", CurrencyName="Indian rupee", CurrencySymbol="₹" }
+                };
+                await _forexAggregatorContext.Country.AddRangeAsync(country);
+                await _forexAggregatorContext.SaveChangesAsync();
+            }
+
             if (!_forexAggregatorContext.Provider.Any())
             {
                 var providers = new List<Provider>()
