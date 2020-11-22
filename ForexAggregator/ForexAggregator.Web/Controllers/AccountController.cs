@@ -30,7 +30,7 @@ namespace ForexAggregator.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var result = await HttpClientHelper.PostAsync<ServiceResponse>(Configuration.GetSection("ApiBaseURL").Value + "Account/Login", "", new PostObject() { PostData = model });
+            var result = await HttpClientHelper.PostAsync<ServiceResponse<Response>>(Configuration.GetSection("ApiBaseURL").Value + "Account/Login", "", new PostObject() { PostData = model });
             if (result.IsSuccessful)
             {
                 HttpContext.Session.SetObjectAsJson("UserName", new UserData() { UserName = model.Email, Token = result.Data.ToString() });
@@ -51,7 +51,7 @@ namespace ForexAggregator.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            var result = await HttpClientHelper.PostAsync<ServiceResponse>(Configuration.GetSection("ApiBaseURL").Value + "Account/Register", "", new PostObject() { PostData = model });
+            var result = await HttpClientHelper.PostAsync<ServiceResponse<Response>>(Configuration.GetSection("ApiBaseURL").Value + "Account/Register", "", new PostObject() { PostData = model });
             if (result.IsSuccessful)
             {
                 return RedirectToAction("Login", "Account");
