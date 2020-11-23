@@ -46,6 +46,10 @@
                 }
             });
         });
+
+        $(document).on('click', '.btnSelectProvider', function (e) {
+            window.location = '/Home/ProviderHistory?providerId=' + $(this).attr('id').split('-')[1] + '&sourceCurrency=' + $('#SourceCurrency').val() + '&targetCurrency=' + $('#TargetCurrency').val();
+        });
     });
 </script>
 

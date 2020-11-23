@@ -1,0 +1,43 @@
+﻿@model ForexAggregator.Web.Models.ExchangeRateHistory
+@{
+    ViewData["Title"] = "Provider History";
+}
+
+<div class="container text-center">
+    <h1>Provider History</h1>
+    <div style="padding:10px; border: 1px solid gray; border-radius: 10px;">
+        <table>
+            <tr>
+                <td class="float-left">Provider Name:</td>
+                <td class="float-left">@Model.Provider.ProviderName</td>
+            </tr>
+            <tr>
+                <td class="float-left">Address:</td>
+                <td class="float-left">@Model.Provider.Location.Address @Model.Provider.Location.CityName</td>
+            </tr>
+        </table>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Source</th>
+            <th>Target</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Date</th>
+        </tr>
+        @foreach (var item in Model.response)
+        {
+            <tr>
+                <td>@Model.info.symbol.Split("/")[0]</td>
+                <td>@Model.info.symbol.Split("/")[1]</td>
+                <td>@item.o</td>
+                <td>@item.h</td>
+                <td>@item.l</td>
+                <td>@item.c</td>
+                <td>@item.tm</td>
+            </tr>
+        }
+    </table>
+</div>

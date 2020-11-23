@@ -3,6 +3,7 @@ using ForexAggregator.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ForexAggregator.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         public IConfiguration Configuration { get; }
-        
+
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
@@ -46,6 +47,16 @@ namespace ForexAggregator.Web.Controllers
                 return PartialView(result.Data);
             }
             return PartialView(new List<Provider>());
+        }
+
+        public async Task<IActionResult> ProviderHistory(int providerId, string sourceCurrency, string targetCurrency)
+        {
+            ViewBag.ProviderId = providerId;
+            string request = string.Format("https://fcsapi.com/api-v3/forex/history?symbol={0}/{1}&period={2}&access_key=gpgjcVKG15ckcgn09QFtBCuOh", sourceCurrency, targetCurrency, "1d");
+            var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetProviderByProviderId?providerId=" + providerId, "");
+            var result = await HttpClientHelper.GetAsync<ExchangeRateHistory>(request, "");
+            result.Provider = provider.Data;
+            return View(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
