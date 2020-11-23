@@ -2,7 +2,8 @@
 <table class="table">
     @if (Model != null)
     {
-        foreach (var item in Model)
+        
+        foreach (var item in Model.OrderByDescending(x=>x.Rate))
         {
             <tr>
                 <td>
@@ -11,10 +12,6 @@
                             <tr>
                                 <td class="float-left">Provider Name:</td>
                                 <td class="float-left">@item.ProviderName</td>
-                            </tr>
-                            <tr>
-                                <td class="float-left">Address:</td>
-                                <td class="float-left">@item.Location.Address @item.Location.CityName</td>
                             </tr>
                             <tr>
                                 <td class="float-left">Rate:</td>

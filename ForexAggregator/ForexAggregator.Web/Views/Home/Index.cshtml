@@ -38,6 +38,7 @@
         });
 
         $('#btnProvider').click(function () {
+            $('#providerList').html('<h2>Loading</h2>');
             $.ajax({
                 url: '/Home/GetProviders?sourceCurrency=' + $('#SourceCurrency').val() + '&targetCurrency=' + $('#TargetCurrency').val(),
                 type: 'get',

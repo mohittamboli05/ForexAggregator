@@ -9,5 +9,6 @@ namespace ForexAggregator.Web.Models
         public virtual Location Location { get; set; }
         public virtual History History { get; set; }
         public virtual IEnumerable<Exchange> Exchange { get; set; }
+        public decimal Rate { get; set; }
     }
 }

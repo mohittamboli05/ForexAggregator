@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ForexAggregator.Web.Controllers
@@ -44,6 +45,8 @@ namespace ForexAggregator.Web.Controllers
                 "ForexAggregator/GetExchangeRate?sourceCurrency=" + sourceCurrency + "&targetCurrency=" + targetCurrency, "");
             if (result.IsSuccessful)
             {
+                foreach (var item in result.Data)
+                    item.Rate = item.Exchange.FirstOrDefault().ExchangeRate;
                 return PartialView(result.Data);
             }
             return PartialView(new List<Provider>());
