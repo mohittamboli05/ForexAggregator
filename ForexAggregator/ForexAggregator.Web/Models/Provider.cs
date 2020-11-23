@@ -1,4 +1,6 @@
-﻿namespace ForexAggregator.Web.Models
+﻿using System.Collections.Generic;
+
+namespace ForexAggregator.Web.Models
 {
     public class Provider
     {
@@ -6,6 +8,6 @@
         public string ProviderName { get; set; }
         public virtual Location Location { get; set; }
         public virtual History History { get; set; }
-        public virtual Exchange Exchange { get; set; }
+        public virtual IEnumerable<Exchange> Exchange { get; set; }
     }
 }

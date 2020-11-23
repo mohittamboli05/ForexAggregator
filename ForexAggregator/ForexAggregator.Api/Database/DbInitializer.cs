@@ -1,5 +1,6 @@
 ﻿using ForexAggregator.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,6 +48,29 @@ namespace ForexAggregator.Api.Database
                              CityName="Indore",
                              Address="Vijay Nagar",
                              PostCode=452001
+                        },
+                        Exchange=new List<Exchange>()
+                        {
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=74.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=98.64M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.71M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=104.44M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="GBP", ExchangeRate=0.75M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="GBP", ExchangeRate=0.0072M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="GBP", ExchangeRate=1.06M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="GBP", ExchangeRate=0.010M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JPY", ExchangeRate=103.75M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JPY", ExchangeRate=138.20M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="JPY", ExchangeRate=146.32M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JPY", ExchangeRate=1.40M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JOD", ExchangeRate=0.71M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JOD", ExchangeRate=0.94M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="JOD", ExchangeRate=0.0068M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JOD", ExchangeRate=0.0096M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="USD", ExchangeRate=1.33M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="USD", ExchangeRate=0.0096M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="USD", ExchangeRate=1.41M},
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="USD", ExchangeRate=0.014M }
                         }
                     },
                     new Provider()
@@ -57,6 +81,29 @@ namespace ForexAggregator.Api.Database
                              CityName="Mumbai",
                              Address="Navi Mumbai",
                              PostCode=423564
+                        },
+                        Exchange=new List<Exchange>()
+                        {
+                        new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=75.06M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=99.64M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.75M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="GBP", ExchangeRate=0.78M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="GBP", ExchangeRate=0.0079M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="GBP", ExchangeRate=1.16M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="GBP", ExchangeRate=0.020M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JPY", ExchangeRate=104.75M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JPY", ExchangeRate=139.20M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="JPY", ExchangeRate=147.32M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JPY", ExchangeRate=1.45M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JOD", ExchangeRate=0.75M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JOD", ExchangeRate=0.99M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="JOD", ExchangeRate=0.0078M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JOD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="USD", ExchangeRate=1.43M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="USD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="USD", ExchangeRate=1.61M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="USD", ExchangeRate=0.034M }
                         }
                     },
                     new Provider()
@@ -67,6 +114,29 @@ namespace ForexAggregator.Api.Database
                              CityName="Pune",
                              Address="Hinjewadi",
                              PostCode=643241
+                        },
+                        Exchange=new List<Exchange>()
+                        {
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=73.06M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=97.64M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.75M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=103.44M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="GBP", ExchangeRate=0.79M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="GBP", ExchangeRate=0.0082M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="GBP", ExchangeRate=1.08M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="GBP", ExchangeRate=0.030M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JPY", ExchangeRate=104.75M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JPY", ExchangeRate=135.20M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="JPY", ExchangeRate=149.32M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JPY", ExchangeRate=1.50M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JOD", ExchangeRate=0.41M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JOD", ExchangeRate=0.84M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="JOD", ExchangeRate=0.0078M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JOD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="USD", ExchangeRate=1.93M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="USD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="USD", ExchangeRate=1.51M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="USD", ExchangeRate=0.034M }
                         }
                     },
                     new Provider()
@@ -77,6 +147,29 @@ namespace ForexAggregator.Api.Database
                              CityName="Chennai",
                              Address="Anna Nagar",
                              PostCode=865467
+                        },
+                        Exchange=new List<Exchange>()
+                        {
+                             new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=77.06M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=97.64M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.61M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="GBP", ExchangeRate=0.95M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="GBP", ExchangeRate=0.0082M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="GBP", ExchangeRate=1.09M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="GBP", ExchangeRate=0.040M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JPY", ExchangeRate=105.75M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JPY", ExchangeRate=136.20M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="JPY", ExchangeRate=144.32M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JPY", ExchangeRate=1.90M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JOD", ExchangeRate=0.31M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JOD", ExchangeRate=0.84M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="JOD", ExchangeRate=0.0078M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JOD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="USD", ExchangeRate=1.43M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="USD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="USD", ExchangeRate=1.61M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="USD", ExchangeRate=0.034M }
                         }
                     },
                     new Provider()
@@ -87,6 +180,29 @@ namespace ForexAggregator.Api.Database
                              CityName="Ahmedabad",
                              Address="Satelite",
                              PostCode=38001
+                        },
+                        Exchange=new List<Exchange>()
+                        {
+                             new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=72.06M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=99.64M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.81M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="GBP", ExchangeRate=0.65M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="GBP", ExchangeRate=0.0062M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="GBP", ExchangeRate=1.07M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="GBP", ExchangeRate=0.020M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JPY", ExchangeRate=102.75M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JPY", ExchangeRate=139.20M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="JPY", ExchangeRate=145.32M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JPY", ExchangeRate=1.50M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="JOD", ExchangeRate=0.81M },
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="JOD", ExchangeRate=0.84M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="JOD", ExchangeRate=0.0078M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="JOD", ExchangeRate=0.0096M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="USD", ExchangeRate=1.43M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="USD", ExchangeRate=0.0086M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="USD", ExchangeRate=1.51M},
+                    new Exchange(){ Date= DateTime.Now, SourceCurrency="INR", TargetCurrency="USD", ExchangeRate=0.024M }
                         }
                     }
                 };

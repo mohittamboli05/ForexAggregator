@@ -29,43 +29,10 @@ namespace ForexAggregator.Api.Controllers
             return _forexService.GetProviderByProviderId(providerId);
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        public ServiceResponse GetRate(string source, string target)
+        public ServiceResponse GetExchangeRate(string sourceCurrency, string targetCurrency)
         {
-            var exchanges = new List<Exchange>()
-            {
-                new Exchange()
-                {
-                     Date=DateTime.Now,
-                     ExchangeId=1,
-                     ProviderId=1,
-                     SourceCurrency="GBP",
-                     TargetCurrency="INR"
-                },
-                new Exchange()
-                {
-                     Date=DateTime.Now,
-                     ExchangeId=2,
-                     ProviderId=2,
-                     SourceCurrency="GBP",
-                     TargetCurrency="INR"
-                },
-                new Exchange()
-                {
-                     Date=DateTime.Now,
-                     ExchangeId=3,
-                     ProviderId=3,
-                     SourceCurrency="GBP",
-                     TargetCurrency="INR"
-                }
-            };
-            var response = new ServiceResponse()
-            {
-                Data = exchanges,
-                IsSuccessful = true
-            };
-            return response;
+            return _forexService.GetExchangeRate(sourceCurrency, targetCurrency);
         }
 
         [HttpGet]

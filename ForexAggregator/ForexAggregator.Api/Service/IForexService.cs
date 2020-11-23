@@ -8,7 +8,7 @@ namespace ForexAggregator.Api.Service
         ServiceResponse GetProviders();
         ServiceResponse GetProviderByProviderId(long providerId);
         ServiceResponse GetProviderHistory(long providerId, DateTime from, DateTime to, string source, string target);
-        ServiceResponse GetRate(string source, string target);
+        ServiceResponse GetExchangeRate(string source, string target);
         ServiceResponse GetCurrency();
     }
 }

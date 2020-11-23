@@ -30,16 +30,22 @@ namespace ForexAggregator.Web.Controllers
             var result = await HttpClientHelper.GetAsync<ServiceResponse<List<Currency>>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetCurrency", "");
             if (result.IsSuccessful)
             {
-
                 if (Request.IsAjaxRequest())
                     return Json(result.Data);
             }
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<PartialViewResult> GetProviders(string sourceCurrency, string targetCurrency)
         {
-            return View();
+            var result = await HttpClientHelper.GetAsync<ServiceResponse<List<Provider>>>(Configuration.GetSection("ApiBaseURL").Value +
+                "ForexAggregator/GetExchangeRate?sourceCurrency=" + sourceCurrency + "&targetCurrency=" + targetCurrency, "");
+            if (result.IsSuccessful)
+            {
+                return PartialView(result.Data);
+            }
+            return PartialView(new List<Provider>());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

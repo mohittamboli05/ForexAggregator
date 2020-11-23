@@ -50,6 +50,22 @@ namespace ForexAggregator.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Country",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CountryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrencyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrencySymbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Country", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Provider",
                 columns: table => new
                 {
@@ -177,6 +193,7 @@ namespace ForexAggregator.Api.Migrations
                     ProviderId = table.Column<long>(type: "bigint", nullable: false),
                     SourceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TargetCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExchangeRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -277,8 +294,7 @@ namespace ForexAggregator.Api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Exchange_ProviderId",
                 table: "Exchange",
-                column: "ProviderId",
-                unique: true);
+                column: "ProviderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_History_ProviderId",
@@ -309,6 +325,9 @@ namespace ForexAggregator.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Country");
 
             migrationBuilder.DropTable(
                 name: "Exchange");

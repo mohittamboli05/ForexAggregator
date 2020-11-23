@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForexAggregator.Api.Migrations
 {
     [DbContext(typeof(ForexAggregatorContext))]
-    [Migration("20201122175231_added-country")]
-    partial class addedcountry
+    [Migration("20201123023101_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,6 +129,9 @@ namespace ForexAggregator.Api.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<long>("ProviderId")
                         .HasColumnType("bigint");
 
@@ -140,8 +143,7 @@ namespace ForexAggregator.Api.Migrations
 
                     b.HasKey("ExchangeId");
 
-                    b.HasIndex("ProviderId")
-                        .IsUnique();
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Exchange");
                 });
@@ -352,8 +354,8 @@ namespace ForexAggregator.Api.Migrations
             modelBuilder.Entity("ForexAggregator.Api.Models.Exchange", b =>
                 {
                     b.HasOne("ForexAggregator.Api.Models.Provider", null)
-                        .WithOne("Exchange")
-                        .HasForeignKey("ForexAggregator.Api.Models.Exchange", "ProviderId")
+                        .WithMany("Exchange")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

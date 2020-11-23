@@ -8,6 +8,7 @@ namespace ForexAggregator.Web.Models
 		public long ProviderId { get; set; }
 		public string SourceCurrency { get; set; }
 		public string TargetCurrency { get; set; }
+		public decimal ExchangeRate { get; set; }
 		public DateTime Date { get; set; }
 	}
 }

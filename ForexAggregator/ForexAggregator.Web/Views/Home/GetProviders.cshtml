@@ -1,0 +1,34 @@
+﻿@model List<ForexAggregator.Web.Models.Provider>
+<table>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="container">
+                        <div class="row" style="padding:10px; border: 1px solid gray; border-radius: 10px;">
+                            <table>
+                                <tr>
+                                    <td class="float-left">Provider Name:</td>
+                                    <td class="float-left">@item.ProviderName</td>
+                                </tr>
+                                <tr>
+                                    <td class="float-left">Address:</td>
+                                    <td class="float-left">@item.Location.Address @item.Location.CityName</td>
+                                </tr>
+                                <tr>
+                                    <td class="float-left">Rate:</td>
+                                    <td class="float-left">@item.Exchange.FirstOrDefault().ExchangeRate</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center"><button type="button" class="btn btn-primary">Select</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+</table>

@@ -1,11 +1,13 @@
-﻿@model List<ForexAggregator.Web.Models.Provider>
+﻿@using ForexAggregator.Web.Helper
+@using ForexAggregator.Web.Models
 @{
     ViewData["Title"] = "Home page";
+    var usedData = Context.Session.GetObjectFromJson<UserData>("UserName");
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#TargetCurrency").val(2);
+        $("#TargetCurrency").val('GBP');
         $('#SourceCurrency').change(function () {
             $("#TargetCurrency > option").each(function () {
                 $(this).prop('disabled', false);
@@ -27,12 +29,22 @@
                 console.log(data);
                 var options = "";
                 $.each(data, function (i, item) {
-                    options += "<option value='" + item.id + "'>" + ((item.currencyName) +" - "+ (item.currencySymbol))+ "</option>";
+                    options += "<option value='" + item.currencyCode + "'>" + ((item.currencyName) + " - " + (item.currencySymbol)) + "</option>";
                 });
                 $("#SourceCurrency").html(options);
                 $("#TargetCurrency").html(options);
-                $("#TargetCurrency").val(2);
+                $("#TargetCurrency").val('GBP');
             }
+        });
+
+        $('#btnProvider').click(function () {
+            $.ajax({
+                url: '/Home/GetProviders?sourceCurrency=' + $('#SourceCurrency').val() + '&targetCurrency=' + $('#TargetCurrency').val(),
+                type: 'get',
+                success: function (data) {
+                    $('#providerList').html(data);
+                }
+            });
         });
     });
 </script>
@@ -42,11 +54,11 @@
         <tr>
             <td>
                 <label for="source">Source Currency:</label>
-                <select id="SourceCurrency" class = "form-control"></select>
+                <select id="SourceCurrency" class="form-control"></select>
             </td>
             <td>
                 <label for="target">Target Currency:</label>
-                <select id="TargetCurrency" class = "form-control"></select>
+                <select id="TargetCurrency" class="form-control"></select>
             </td>
         </tr>
         <tr>
@@ -60,33 +72,22 @@
     </table>
     <div class="form-group">
         <div class="col-sm-offset-2 ">
-            <button type="submit" class="btn btn-primary">Show Provider List</button>
+            @if (usedData != null)
+            {
+                <button type="button" id="btnProvider" class="btn btn-primary">Show Provider List</button>
+            }
+            else
+            {
+                <a href="/Account/Login" class="btn btn-primary">Show Provider List</a>
+            }
         </div>
     </div>
-    <table>
-        @if (Model != null)
-        {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <span>Provider Name: </span> @item.ProviderName
-                                    <button type="submit" class="btn btn-primary">Select</button>
-                                    <br />
-                                    <label>Rate: </label> 20
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            }
-        }
-    </table>
+
+    <div class="form-group">
+        <div id="providerList" class="col-sm-offset-2 ">
+            
+        </div>
+    </div>
 </div>
 
 
