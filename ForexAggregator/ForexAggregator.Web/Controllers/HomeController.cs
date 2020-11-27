@@ -55,12 +55,23 @@ namespace ForexAggregator.Web.Controllers
         public async Task<IActionResult> ProviderHistory(int providerId, string sourceCurrency, string targetCurrency)
         {
             ViewBag.ProviderId = providerId;
-            string request = string.Format("https://fcsapi.com/api-v3/forex/history?symbol={0}/{1}&period={2}&access_key=gpgjcVKG15ckcgn09QFtBCuOh", sourceCurrency, targetCurrency, "1d");
             var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetProviderByProviderId?providerId=" + providerId, "");
-            var result = await HttpClientHelper.GetAsync<ExchangeRateHistory>(request, "");
-            result.Provider = provider.Data;
+            var result = new ExchangeRateHistory() { Provider=provider.Data, Source=sourceCurrency, Target=targetCurrency };
             return View(result);
         }
+
+        public async Task<IActionResult> GetHistory(string sourceCurrency, string targetCurrency)
+        {
+            string request = string.Format("https://fcsapi.com/api-v3/forex/history?symbol={0}/{1}&period={2}&access_key=gpgjcVKG15ckcgn09QFtBCuOh", sourceCurrency, targetCurrency, "1d");
+            var result = await HttpClientHelper.GetAsync<ExchangeRateHistory>(request, "");
+            DateTime twelveMonthsBeforeNow = DateTime.Now.AddMonths(-12);
+            var temp= result.response.Where(x => x.tm >= twelveMonthsBeforeNow).ToList();
+
+            if (Request.IsAjaxRequest())
+                return Json(temp);
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
