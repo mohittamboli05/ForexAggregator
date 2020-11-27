@@ -30,7 +30,7 @@
             },
             data: [{
                 type: "candlestick",
-                yValueFormatString: "$##0.00",
+                yValueFormatString: $('#hdnSourceCurrency').val()+" ##0.00",
                 dataPoints: dataPoints
             }]
         });
@@ -39,13 +39,14 @@
             url: '/Home/GetHistory?sourceCurrency=' + $('#hdnSourceCurrency').val() + '&targetCurrency=' + $('#hdnTargetCurrency').val(),
             type: 'get',
             success: function (data) {
-                
+                console.log(data);
                 $.each(data, function (index, value) {
                     dataPoints.push({
                         x: new Date(
-                            parseInt(value.tm.split(" ")[0].split("-")[0]),
-                            parseInt(value.tm.split(" ")[0].split("-")[1]),
-                            parseInt(value.tm.split(" ")[0].split("-")[2])
+                            value.tm.split("T")[0]
+                            //parseInt(value.tm.split("T")[0].split("-")[0]),
+                            //parseInt(value.tm.split("T")[0].split("-")[1]),
+                            //parseInt(value.tm.split("T")[0].split("-")[2])
                         ),
                         y: [
                             parseFloat(value.o),
@@ -55,6 +56,7 @@
                         ]
                     });
                 });
+                console.log(dataPoints);
                 chart.render();
 
             }
