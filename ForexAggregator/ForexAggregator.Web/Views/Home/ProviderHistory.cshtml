@@ -93,14 +93,14 @@
                     @Html.HiddenFor(x => x.ProviderId)
                     @Html.HiddenFor(x => x.ProviderName)
                     <div class="form-group">
-                        <label class="control-label float-left" for="email">Enter Amount :</label>
+                        <label class="control-label float-left" for="email">Enter Amount to be converted :</label>
                         <div class="">
                             @Html.TextBoxFor(m => m.Amount, new { @class = "form-control border-left", @numeric = "numeric", @placeholder = "" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 ">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
                     </div>
                 </form>
