@@ -36,6 +36,12 @@ namespace ForexAggregator.Api.Controllers
         }
 
         [HttpGet]
+        public ServiceResponse GetExchangeRateByProviderId(long providerId, string sourceCurrency, string targetCurrency)
+        {
+            return _forexService.GetExchangeRateByProviderId(sourceCurrency, targetCurrency, providerId);
+        }
+
+        [HttpGet]
         public ServiceResponse GetCurrency()
         {
             return _forexService.GetCurrency();

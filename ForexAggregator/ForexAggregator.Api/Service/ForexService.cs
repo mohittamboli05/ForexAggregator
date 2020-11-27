@@ -48,6 +48,16 @@ namespace ForexAggregator.Api.Service
             return response;
         }
 
+        public ServiceResponse GetExchangeRateByProviderId(string sourceCurrency, string targetCurrency, long providerId)
+        {
+            var response = new ServiceResponse();
+            var providers = _context.Provider.Include("Location").FirstOrDefault(x => x.ProviderId.Equals(providerId));
+            providers.Exchange = _context.Exchange.Where(x => x.ProviderId.Equals(providerId) && x.SourceCurrency.Equals(sourceCurrency) && x.TargetCurrency.Equals(targetCurrency)).ToList();
+            response.Data = providers;
+            response.IsSuccessful = true;
+            return response;
+        }
+
         public ServiceResponse GetCurrency()
         {
             var response = new ServiceResponse();

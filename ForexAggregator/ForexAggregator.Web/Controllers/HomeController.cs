@@ -56,8 +56,9 @@ namespace ForexAggregator.Web.Controllers
         {
             ViewBag.ProviderId = providerId;
             var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetProviderByProviderId?providerId=" + providerId, "");
-            var result = new ExchangeRateHistory() { Provider=provider.Data, Source=sourceCurrency, Target=targetCurrency };
-            return View(result);
+            provider.Data.SourceCurrency = sourceCurrency;
+            provider.Data.TargetCurrency = targetCurrency;
+            return View(provider.Data);
         }
 
         public async Task<IActionResult> GetHistory(string sourceCurrency, string targetCurrency)
@@ -68,6 +69,13 @@ namespace ForexAggregator.Web.Controllers
             if (Request.IsAjaxRequest())
                 return Json(processedResult);
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProviderDetails(Provider model)
+        {
+            var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetExchangeRateByProviderId?providerId=" + model.ProviderId+"&sourceCurrency= " + model.SourceCurrency + "&targetCurrency=" + model.TargetCurrency, "");
+            return View(provider.Data);
         }
 
 
