@@ -71,11 +71,28 @@ namespace ForexAggregator.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> GetCurrentRate(string sourceCurrency, string targetCurrency)
+        {
+            string request = string.Format("https://fcsapi.com/api-v3/forex/history?symbol={0}/{1}&period={2}&access_key=gpgjcVKG15ckcgn09QFtBCuOh", sourceCurrency, targetCurrency, "1d");
+            var result = await HttpClientHelper.GetAsync<ExchangeRateHistory>(request, "");
+            var processedResult = result.response.Where(x => x.tm == new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)).ToList();
+            if (Request.IsAjaxRequest())
+                return Json(processedResult);
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> ProviderDetails(Provider model)
         {
             var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetExchangeRateByProviderId?providerId=" + model.ProviderId+"&sourceCurrency= " + model.SourceCurrency + "&targetCurrency=" + model.TargetCurrency, "");
-            return View(provider.Data);
+            string source = model.SourceCurrency;
+            string target = model.TargetCurrency;
+            decimal amount = model.Amount;
+            model = provider.Data;
+            model.Amount = amount;
+            model.SourceCurrency = source;
+            model.TargetCurrency = target;
+            return View(model);
         }
 
 

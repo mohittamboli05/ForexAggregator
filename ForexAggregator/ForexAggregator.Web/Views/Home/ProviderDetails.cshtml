@@ -1,7 +1,42 @@
 ﻿@model ForexAggregator.Web.Models.Provider
 @{
     ViewData["Title"] = "ProviderDetails";
+    decimal rate = Model.Exchange.FirstOrDefault(x => x.SourceCurrency.Equals(Model.SourceCurrency) && x.TargetCurrency.Equals(Model.TargetCurrency)).ExchangeRate;
+    decimal convertedAmount = Model.Amount * rate;
 }
 
-<h1>ProviderDetails</h1>
 
+<div class="container text-center">
+    <h1>Provider Details</h1>
+    
+    <div class="col-4">
+        <table style="margin-left: 350px !important;margin-top: 90px;" class="table">
+            <tr>
+                <td>
+                    <label for="source">Provider Name:</label>
+                    <strong>@Model.ProviderName</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="source">Location:</label>
+                    <strong>@Model.Location.Address @Model.Location.CityName</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="source">Amount To Pay In @Model.SourceCurrency:</label>
+                    <strong>@Model.Amount</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="source">Converted Amount In @Model.TargetCurrency:</label>
+                    <strong>@convertedAmount</strong>
+                </td>
+            </tr>
+        </table>
+    </div>
+   
+    
+</div>

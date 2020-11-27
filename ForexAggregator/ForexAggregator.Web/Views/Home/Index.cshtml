@@ -13,6 +13,7 @@
                 $(this).prop('disabled', false);
             });
             $("#TargetCurrency option[value*=" + $(this).val() + "]").prop('disabled', true);
+            getCurrentRate();
         });
 
         $('#TargetCurrency').change(function () {
@@ -20,13 +21,13 @@
                 $(this).prop('disabled', false);
             });
             $("#SourceCurrency option[value*=" + $(this).val() + "]").prop('disabled', true);
+            getCurrentRate();
         });
 
         $.ajax({
             url: '/Home/GetCurrency',
             type: 'get',
             success: function (data) {
-                console.log(data);
                 var options = "";
                 $.each(data, function (i, item) {
                     options += "<option value='" + item.currencyCode + "'>" + ((item.currencyName) + " - " + (item.currencySymbol)) + "</option>";
@@ -35,7 +36,20 @@
                 $("#TargetCurrency").html(options);
                 $("#TargetCurrency").val('GBP');
             }
+        }).done(function () {
+            getCurrentRate();
         });
+
+        function getCurrentRate() {
+            $.ajax({
+                url: '/Home/GetCurrentRate?sourceCurrency=' + $('#SourceCurrency').val() + '&targetCurrency=' + $('#TargetCurrency').val(),
+                type: 'get',
+                success: function (data) {
+                    $('#lblSourceCurrency').html($('#SourceCurrency').val());
+                    $('#lblTargetCurrency').html(parseFloat(data[0].h).toFixed(2) + ' ' + $('#TargetCurrency').val());
+                }
+            });
+        }
 
         $('#btnProvider').click(function () {
             $('#providerList').html('<h2>Loading</h2>');
@@ -69,8 +83,8 @@
         <tr>
             <td colspan="2">
                 <div class="text-center">
-                    <span>Current Rate <lable id="selectedSource">1 USD : </lable></span>
-                    <span><label id="selectedTarget">80 INR</label></span>
+                    <span>Current Rate <lable id="selectedSource">1 <lable id="lblSourceCurrency"></lable> : </lable></span>
+                    <span><label id="selectedTarget"><lable id="lblTargetCurrency"></lable></label></span>
                 </div>
             </td>
         </tr>
