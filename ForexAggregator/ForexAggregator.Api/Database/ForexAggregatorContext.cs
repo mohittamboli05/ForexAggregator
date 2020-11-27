@@ -22,7 +22,7 @@ namespace ForexAggregator.Api.Database
         public DbSet<Provider> Provider { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Country> Country { get; set; }
-        //public DbSet<History> History { get; set; }
+        
         public DbSet<Exchange> Exchange { get; set; }
     }
 }
