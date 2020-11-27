@@ -9,7 +9,6 @@ namespace ForexAggregator.Api.Models
 		public long ProviderId { get; set; }
 		public string ProviderName { get; set; }
 		public virtual Location Location { get; set; }
-		public virtual History History { get; set; }
 		public virtual IEnumerable<Exchange> Exchange { get; set; }
 	}
 }

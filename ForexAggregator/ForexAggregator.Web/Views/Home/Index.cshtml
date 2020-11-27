@@ -35,18 +35,29 @@
                 $("#SourceCurrency").html(options);
                 $("#TargetCurrency").html(options);
                 $("#TargetCurrency").val('GBP');
+                
             }
         }).done(function () {
+            $("#TargetCurrency > option").each(function () {
+                $(this).prop('disabled', false);
+            });
+            $("#TargetCurrency option[value*=" + $('#SourceCurrency').val() + "]").prop('disabled', true);
+            $("#SourceCurrency > option").each(function () {
+                $(this).prop('disabled', false);
+            });
+            $("#SourceCurrency option[value*=" + $('#TargetCurrency').val() + "]").prop('disabled', true);
             getCurrentRate();
         });
 
         function getCurrentRate() {
+            $('#currentRateDiv').hide();
             $.ajax({
                 url: '/Home/GetCurrentRate?sourceCurrency=' + $('#SourceCurrency').val() + '&targetCurrency=' + $('#TargetCurrency').val(),
                 type: 'get',
                 success: function (data) {
                     $('#lblSourceCurrency').html($('#SourceCurrency').val());
                     $('#lblTargetCurrency').html(parseFloat(data[0].h).toFixed(2) + ' ' + $('#TargetCurrency').val());
+                    $('#currentRateDiv').show();
                 }
             });
         }
@@ -82,7 +93,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="text-center">
+                <div class="text-center" id="currentRateDiv" style="display:none;">
                     <span>Current Rate <lable id="selectedSource">1 <lable id="lblSourceCurrency"></lable> : </lable></span>
                     <span><label id="selectedTarget"><lable id="lblTargetCurrency"></lable></label></span>
                 </div>
