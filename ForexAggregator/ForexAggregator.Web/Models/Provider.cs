@@ -10,7 +10,7 @@ namespace ForexAggregator.Web.Models
         public virtual History History { get; set; }
         public virtual IEnumerable<Exchange> Exchange { get; set; }
         public decimal Rate { get; set; }
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
         public string SourceCurrency { get; set; }
         public string TargetCurrency { get; set; }
     }

@@ -87,7 +87,7 @@ namespace ForexAggregator.Web.Controllers
             var provider = await HttpClientHelper.GetAsync<ServiceResponse<Provider>>(Configuration.GetSection("ApiBaseURL").Value + "ForexAggregator/GetExchangeRateByProviderId?providerId=" + model.ProviderId+"&sourceCurrency= " + model.SourceCurrency + "&targetCurrency=" + model.TargetCurrency, "");
             string source = model.SourceCurrency;
             string target = model.TargetCurrency;
-            decimal amount = model.Amount;
+            string amount = model.Amount;
             model = provider.Data;
             model.Amount = amount;
             model.SourceCurrency = source;

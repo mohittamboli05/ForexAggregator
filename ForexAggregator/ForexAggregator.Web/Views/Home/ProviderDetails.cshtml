@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "ProviderDetails";
     decimal rate = Model.Exchange.FirstOrDefault(x => x.SourceCurrency.Equals(Model.SourceCurrency) && x.TargetCurrency.Equals(Model.TargetCurrency)).ExchangeRate;
-    decimal convertedAmount = Model.Amount * rate;
+    decimal convertedAmount = decimal.Parse(Model.Amount) * rate;
 }
 
 <div class="container">
