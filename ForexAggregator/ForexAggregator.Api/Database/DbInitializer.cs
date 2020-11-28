@@ -45,13 +45,13 @@ namespace ForexAggregator.Api.Database
                         ProviderName="Western Union",
                         Location=new Location()
                         {
-                             CityName="Indore",
-                             Address="Vijay Nagar",
-                             PostCode=452001
+                             CityName="Pune",
+                             Address="Yerwada",
+                             PostCode=411006
                         },
                         Exchange=new List<Exchange>()
                         {
-                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=74.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=72.06M },
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=98.64M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.71M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=104.44M},
@@ -78,13 +78,13 @@ namespace ForexAggregator.Api.Database
                         ProviderName="eToro",
                         Location=new Location()
                         {
-                             CityName="Mumbai",
-                             Address="Navi Mumbai",
+                             CityName="Pune",
+                             Address="Kothrud",
                              PostCode=423564
                         },
                         Exchange=new List<Exchange>()
                         {
-                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=75.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=71.01M },
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=99.64M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.75M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
@@ -117,7 +117,7 @@ namespace ForexAggregator.Api.Database
                         },
                         Exchange=new List<Exchange>()
                         {
-                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=73.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=70.66M },
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=97.64M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.75M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=103.44M},
@@ -144,13 +144,13 @@ namespace ForexAggregator.Api.Database
                         ProviderName="Libertex",
                         Location=new Location()
                         {
-                             CityName="Chennai",
-                             Address="Anna Nagar",
+                             CityName="Pune",
+                             Address="Viman Nagar",
                              PostCode=865467
                         },
                         Exchange=new List<Exchange>()
                         {
-                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=77.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=68.35M },
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=97.64M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.61M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
@@ -177,13 +177,14 @@ namespace ForexAggregator.Api.Database
                         ProviderName="ICICI",
                         Location=new Location()
                         {
-                             CityName="Ahmedabad",
-                             Address="Satelite",
+                             CityName="Pune",
+                             Address="Baner",
                              PostCode=38001
+
                         },
                         Exchange=new List<Exchange>()
                         {
-                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=72.06M },
+                            new Exchange(){ Date= DateTime.Now, SourceCurrency="USD", TargetCurrency="INR", ExchangeRate=69.60M },
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="GBP", TargetCurrency="INR", ExchangeRate=99.64M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JPY", TargetCurrency="INR", ExchangeRate=0.81M},
                             new Exchange(){ Date= DateTime.Now, SourceCurrency="JOD", TargetCurrency="INR", ExchangeRate=105.44M},
