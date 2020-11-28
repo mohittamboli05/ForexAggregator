@@ -75,7 +75,7 @@ namespace ForexAggregator.Web.Controllers
         {
             string request = string.Format("https://fcsapi.com/api-v3/forex/history?symbol={0}/{1}&period={2}&access_key=gpgjcVKG15ckcgn09QFtBCuOh", sourceCurrency, targetCurrency, "1d");
             var result = await HttpClientHelper.GetAsync<ExchangeRateHistory>(request, "");
-            var processedResult = result.response.Where(x => x.tm == new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)).ToList();
+            var processedResult = result.response.Where(x => x.tm == new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(-1).Day)).ToList();
             if (Request.IsAjaxRequest())
                 return Json(processedResult);
             return View();
