@@ -4,55 +4,57 @@
 }
 <div class="container">
     <div class="row">
-
-        <div style="width: 50%; margin: 15px auto;">
-            <h1 style="text-align: center; margin-bottom: 25px">User Register</h1>
+        <div class="col-3"></div>
+        <div class="col-6 text-center">
+            <h2>User Register</h2>
+            <hr />
             <form class="form-horizontal" method="post" asp-action="Register">
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="firstname">First Name:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="firstname">First Name:</label>
+                    <div>
                         @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control border-left", @placeholder = "Enter First Name" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="lastname">Last Name:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="lastname">Last Name:</label>
+                    <div>
                         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control border-left", @placeholder = "Enter Last Name" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="Mobile">Mobile No.:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="Mobile">Mobile No.:</label>
+                    <div>
                         @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control border-left", @placeholder = "Enter Mobile No." })
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="email">Email:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="email">Email:</label>
+                    <div>
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control border-left", @placeholder = "Enter email" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="pwd">Password:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="pwd">Password:</label>
+                    <div >
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control border-left", @placeholder = "Enter Password" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-10" for="pwd">Confirm Password:</label>
-                    <div class="col-sm-20">
+                    <label class="control-label float-left" for="pwd">Confirm Password:</label>
+                    <div >
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control border-left", @placeholder = "Confirm Password" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-offset-2 float-left">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-3"></div>
     </div>
 </div>

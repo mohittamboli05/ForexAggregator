@@ -13,6 +13,7 @@ namespace ForexAggregator.Api.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Exchange>().Property(e => e.ExchangeRate).HasPrecision(18, 5);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,7 +23,6 @@ namespace ForexAggregator.Api.Database
         public DbSet<Provider> Provider { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Country> Country { get; set; }
-        
         public DbSet<Exchange> Exchange { get; set; }
     }
 }

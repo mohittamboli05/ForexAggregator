@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForexAggregator.Api.Migrations
 {
     [DbContext(typeof(ForexAggregatorContext))]
-    [Migration("20201123023101_initial-migration")]
+    [Migration("20201128060317_initial-migration")]
     partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,7 +130,8 @@ namespace ForexAggregator.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("ExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 5)
+                        .HasColumnType("decimal(18,5)");
 
                     b.Property<long>("ProviderId")
                         .HasColumnType("bigint");
@@ -146,36 +147,6 @@ namespace ForexAggregator.Api.Migrations
                     b.HasIndex("ProviderId");
 
                     b.ToTable("Exchange");
-                });
-
-            modelBuilder.Entity("ForexAggregator.Api.Models.History", b =>
-                {
-                    b.Property<long>("HistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("ProviderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SourceCurrency")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetCurrency")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HistoryId");
-
-                    b.HasIndex("ProviderId")
-                        .IsUnique();
-
-                    b.ToTable("History");
                 });
 
             modelBuilder.Entity("ForexAggregator.Api.Models.Location", b =>
@@ -360,15 +331,6 @@ namespace ForexAggregator.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ForexAggregator.Api.Models.History", b =>
-                {
-                    b.HasOne("ForexAggregator.Api.Models.Provider", null)
-                        .WithOne("History")
-                        .HasForeignKey("ForexAggregator.Api.Models.History", "ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ForexAggregator.Api.Models.Location", b =>
                 {
                     b.HasOne("ForexAggregator.Api.Models.Provider", null)
@@ -432,8 +394,6 @@ namespace ForexAggregator.Api.Migrations
             modelBuilder.Entity("ForexAggregator.Api.Models.Provider", b =>
                 {
                     b.Navigation("Exchange");
-
-                    b.Navigation("History");
 
                     b.Navigation("Location");
                 });
